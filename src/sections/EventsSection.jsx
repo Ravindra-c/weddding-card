@@ -1,3 +1,4 @@
+
 import {
   CalendarDays,
   Clock,
@@ -67,7 +68,10 @@ export default function EventsSection() {
   const { t, lang, isTelugu } = useLang();
   const pick = useLocalized();
 
-  const list = events.filter((e) => e.enabled);
+  // Show only enabled events and remove the Mehendi event
+  const list = events.filter(
+    (e) => e.enabled && e.icon !== 'mehendi'
+  );
 
   if (!list.length) {
     return null;

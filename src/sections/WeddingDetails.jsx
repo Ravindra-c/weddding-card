@@ -3,7 +3,6 @@ import { useLang } from '../context/LanguageContext';
 import Reveal from '../components/Reveal';
 import MandalaBackground from '../components/MandalaBackground';
 import PetalAnimation from '../components/PetalAnimation';
-import Diya from '../components/Diya';
 import { GoldDivider, GoldFrame, Lotus, Toran } from '../components/Ornaments';
 import SplitText from '../components/SplitText';
 
@@ -20,9 +19,7 @@ export default function WeddingDetails() {
       </div>
       <Toran className="absolute inset-x-0 top-0 h-10 sm:h-16" />
 
-      <Diya className="absolute bottom-6 left-3 h-14 w-14 sm:bottom-10 sm:left-12 sm:h-24 sm:w-24" />
-      <Diya className="absolute bottom-6 right-3 h-14 w-14 sm:bottom-10 sm:right-12 sm:h-24 sm:w-24" />
-
+      
       <div className="relative mx-auto max-w-3xl">
         <GoldFrame className="bg-maroon-deep/55 px-5 py-14 text-center backdrop-blur-sm sm:px-12 sm:py-20" cornerClass="sm:!h-20 sm:!w-20">
           <Reveal variant="scale">

@@ -4,7 +4,6 @@ import { useLang } from '../context/LanguageContext';
 import Reveal from '../components/Reveal';
 import MandalaBackground from '../components/MandalaBackground';
 import PetalAnimation from '../components/PetalAnimation';
-import Diya from '../components/Diya';
 import { GoldDivider, Lotus, Toran } from '../components/Ornaments';
 
 export default function ThankYouSection() {
@@ -94,10 +93,7 @@ export default function ThankYouSection() {
           </p>
         </Reveal>
 
-        <div className="mt-12 flex items-end justify-center gap-10">
-          <Diya className="h-16 w-16 sm:h-24 sm:w-24" />
-          <Diya className="h-16 w-16 sm:h-24 sm:w-24" />
-        </div>
+        
       </div>
     </section>
   );

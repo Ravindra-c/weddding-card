@@ -11,11 +11,11 @@ export const weddingData = {
   weddingDateTime: '2026-11-18T10:30:00+05:30',
 
   // ---- Google Maps. Paste the "Share → Copy link" URL from Google Maps.
-  mapsUrl: '[GOOGLE MAPS LINK]',
+  mapsUrl: '[https://share.google/aDXYhroVR1HlnLUmd]',
   // Optional: paste the "Embed a map" src URL (https://www.google.com/maps/embed?pb=...) to show a live map.
   mapEmbedUrl: '',
   // Optional: leave empty to auto-build a directions link from venue + address.
-  directionsUrl: '',
+  directionsUrl: 'https://share.google/aDXYhroVR1HlnLUmd',
 
   // ---- Browser tab title
   siteTitle: {
@@ -24,38 +24,36 @@ export const weddingData = {
   },
 
   en: {
-    groomName: 'Nikhil',
-    brideName: 'Uma maheswari',
-    groomFather: '[GROOM FATHER NAME]',
-    groomMother: '[GROOM MOTHER NAME]',
+    groomName: 'Venkata Subrahmanya Nikhil Indraganti',
+    brideName: 'Mahamkali Uma Maheswari',
+    groomFather: '[Indraganti V.S. Sasidhar Krishna]',
+    groomMother: '[Indraganti Sri Lakshmi]',
     brideFather: '[BRIDE FATHER NAME]',
     brideMother: '[BRIDE MOTHER NAME]',
-    groomTown: '[TOWN / VILLAGE]',
-    brideTown: '[TOWN / VILLAGE]',
-    weddingDate: '[18-11-2026]',
-    weddingTime: '[WEDDING TIME]',
-    venue: '[Ongole]',
-    address: '[FULL ADDRESS], [Ongole], [Ongole], Andhra Pradesh, India',
-    town: '[Ongole]',
-    district: '[Ongole]',
+    groomTown: 'Vijayawada',
+    brideTown: 'Ongole',
+    weddingDate: '18-11-2026',
+    weddingTime: '',
+    venue: 'Vishnu priya convention hall',
+    address: 'NH-5 , Guntur road , Beside HP Petrol bunk ,throvagunta, Ongole, Andhra Pradesh, India',
+     town: 'Ongole',
     state: 'Andhra Pradesh, India',
   },
 
   te: {
     groomName: 'నిఖిల్',
     brideName: 'ఉమ మహేశ్వరీ',
-    groomFather: '[వరుడి తండ్రి పేరు]',
-    groomMother: '[వరుడి తల్లి పేరు]',
+    groomFather: 'ఇంద్రగంటి వి.ఎస్. శశిధర్ కృష్ణ',
+    groomMother: 'ఇంద్రగంటి శ్రీ లక్ష్మి',
     brideFather: '[వధువు తండ్రి పేరు]',
     brideMother: '[వధువు తల్లి పేరు]',
-    groomTown: '[Vijayawada]',
-    brideTown: '[Ongole]',
-    weddingDate: '[వివాహ తేదీ]',
+    groomTown: 'విజయవాడ',
+    brideTown: 'ఓoగోలు',
+    weddingDate: '18-11-2026',
     weddingTime: '[వివాహ సమయం]',
-    venue: '[వివాహ వేదిక]',
-    address: '[పూర్తి చిరునామా], [ఊరు / గ్రామం], [జిల్లా], ఆంధ్రప్రదేశ్, భారతదేశం',
-    town: '[ఊరు / గ్రామం]',
-    district: '[జిల్లా]',
+    venue: 'విష్ణుప్రియ కన్వెన్షన్ హాల్',
+    address: 'NH-5 , Guntur road , Beside HP Petrol bunk ,throvagunta, [ఓoగోలు], ఆంధ్రప్రదేశ్, భారతదేశం',
+    town: 'ఓoగోలు',
     state: 'ఆంధ్రప్రదేశ్, భారతదేశం',
   },
 };

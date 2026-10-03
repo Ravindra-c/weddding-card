@@ -3,7 +3,6 @@ import { ChevronDown, Heart } from 'lucide-react';
 import { useLang } from '../context/LanguageContext';
 import MandalaBackground from '../components/MandalaBackground';
 import PetalAnimation from '../components/PetalAnimation';
-import Diya from '../components/Diya';
 import { Corner, GoldDivider, Toran } from '../components/Ornaments';
 import SplitText from '../components/SplitText';
 
@@ -32,9 +31,7 @@ export default function HeroSection() {
         <Corner className="absolute -bottom-px -right-px rotate-180" />
         <Corner className="absolute -bottom-px -left-px -rotate-90" />
       </div>
-      <Diya className="absolute bottom-6 left-6 h-14 w-14 sm:bottom-12 sm:left-14 sm:h-20 sm:w-20" />
-      <Diya className="absolute bottom-6 right-6 h-14 w-14 sm:bottom-12 sm:right-14 sm:h-20 sm:w-20" />
-
+      
       {/* content wrapper top margin decreased by 20% (mt-6 sm:mt-10 -> mt-4 sm:mt-6) */}
       <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center mt-4 sm:mt-6">
         <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }} className={`text-sm text-gold-light/90 sm:text-base ${isTelugu ? 'font-telugu' : 'font-display italic'}`}>

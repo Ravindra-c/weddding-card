@@ -3,7 +3,6 @@ import { fmt } from '../utils/helpers';
 import Reveal from '../components/Reveal';
 import SectionHeading from '../components/SectionHeading';
 import { GoldFrame, Jasmine, Lotus, Marigold } from '../components/Ornaments';
-import Diya from '../components/Diya';
 
 function FamilyCard({ title, parentsLine, father, mother, town, variant, delay }) {
   const { t, isTelugu } = useLang();
@@ -29,8 +28,7 @@ export default function FamilySection() {
   const { t, d, isTelugu } = useLang();
   return (
     <section id="family" className="section-pad relative overflow-hidden bg-ivory">
-      <Diya className="absolute left-3 top-6 h-14 w-14 opacity-90 sm:left-10 sm:h-20 sm:w-20" />
-      <Diya className="absolute right-3 top-6 h-14 w-14 opacity-90 sm:right-10 sm:h-20 sm:w-20" />
+    
       <div className="container-wedding">
         <SectionHeading title={t.family.title} />
         <div className="mx-auto grid max-w-4xl gap-8 md:grid-cols-2 md:gap-10">
