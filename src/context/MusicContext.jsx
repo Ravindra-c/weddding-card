@@ -28,8 +28,9 @@ function loadYouTubeApi() {
 }
 
 /**
- * status: 'idle' | 'playing' | 'paused' | 'error'
+ * status: 'idle' | 'playing' | 'paused'
  * Works with a YouTube link OR a local MP3 — see src/config/music.js
+ * Buttons never get permanently disabled: a failed attempt can always be retried.
  */
 export function MusicProvider({ children }) {
   const [status, setStatus] = useState('idle');
@@ -42,21 +43,43 @@ export function MusicProvider({ children }) {
   const audioRef = useRef(null);
   const modeRef = useRef(null); // 'youtube' | 'audio'
   const wantPlayRef = useRef(false);
+  const mutedRef = useRef(false);
 
   const videoId = useMemo(() => getYouTubeId(musicConfig.youtubeUrl), []);
 
-  // ---- local MP3 helper (also used as a fallback when YouTube fails)
+  const applyMute = useCallback((next) => {
+    try {
+      if (modeRef.current === 'youtube' && ytReady.current && ytRef.current) {
+        if (next) ytRef.current.mute();
+        else ytRef.current.unMute();
+      }
+      if (audioRef.current) audioRef.current.muted = next;
+    } catch { /* ignore */ }
+  }, []);
+
+  // The real player state, not React state (React state can lag behind on phones).
+  const isPlaying = useCallback(() => {
+    if (modeRef.current === 'youtube' && ytReady.current && ytRef.current) {
+      try {
+        const s = ytRef.current.getPlayerState();
+        return s === 1 || s === 3; // playing or buffering
+      } catch { return false; }
+    }
+    return !!audioRef.current && !audioRef.current.paused;
+  }, []);
+
   const setupAudio = useCallback(() => {
     if (audioRef.current) return audioRef.current;
     if (!musicConfig.audioUrl) return null;
     const a = new Audio();
     a.loop = musicConfig.loop;
     a.volume = musicConfig.volume;
+    a.muted = mutedRef.current;
     a.preload = 'none';
     a.src = musicConfig.audioUrl;
     a.addEventListener('play', () => setStatus('playing'));
-    a.addEventListener('pause', () => setStatus((s) => (s === 'error' ? s : 'paused')));
-    a.addEventListener('error', () => setStatus('error'));
+    a.addEventListener('pause', () => setStatus('paused'));
+    a.addEventListener('error', () => setStatus('paused')); // e.g. mp3 missing: stay usable
     audioRef.current = a;
     return a;
   }, []);
@@ -73,8 +96,8 @@ export function MusicProvider({ children }) {
           const holder = document.createElement('div');
           hostRef.current.appendChild(holder);
           ytRef.current = new YT.Player(holder, {
-            width: '1',
-            height: '1',
+            width: '200',
+            height: '200',
             videoId,
             playerVars: {
               autoplay: 0, controls: 0, disablekb: 1, fs: 0, playsinline: 1, rel: 0,
@@ -84,6 +107,7 @@ export function MusicProvider({ children }) {
               onReady: (e) => {
                 ytReady.current = true;
                 e.target.setVolume(Math.round(musicConfig.volume * 100));
+                applyMute(mutedRef.current);
                 if (wantPlayRef.current) e.target.playVideo();
               },
               onStateChange: (e) => {
@@ -93,12 +117,11 @@ export function MusicProvider({ children }) {
                 else if (e.data === S.ENDED && musicConfig.loop) e.target.playVideo();
               },
               onError: () => {
-                // Video blocked / unavailable → try the local MP3, otherwise show disabled control.
+                // Video blocked / unavailable → try the local MP3.
                 ytReady.current = false;
                 modeRef.current = 'audio';
                 const a = setupAudio();
-                if (a && wantPlayRef.current) a.play().catch(() => setStatus('error'));
-                else if (!a) setStatus('error');
+                if (a && wantPlayRef.current) a.play().catch(() => setStatus('paused'));
               },
             },
           });
@@ -112,8 +135,15 @@ export function MusicProvider({ children }) {
       setupAudio();
     }
 
+    // When the guest returns to the tab, re-sync the button with what is really happening.
+    const onVisible = () => {
+      if (!document.hidden) setStatus(isPlaying() ? 'playing' : (s) => (s === 'idle' ? 'idle' : 'paused'));
+    };
+    document.addEventListener('visibilitychange', onVisible);
+
     return () => {
       cancelled = true;
+      document.removeEventListener('visibilitychange', onVisible);
       try { ytRef.current?.destroy(); } catch { /* ignore */ }
       ytRef.current = null;
       ytReady.current = false;
@@ -124,31 +154,29 @@ export function MusicProvider({ children }) {
         audioRef.current = null;
       }
     };
-  }, [videoId, setupAudio]);
+  }, [videoId, setupAudio, applyMute, isPlaying]);
 
   const play = useCallback(() => {
     if (!musicConfig.enabled) return;
     wantPlayRef.current = true;
     if (modeRef.current === 'youtube') {
       if (ytReady.current && ytRef.current) {
-        try { ytRef.current.playVideo(); } catch { setStatus('error'); }
+        try { ytRef.current.playVideo(); } catch { /* ignore */ }
       }
-      // otherwise onReady will start it (wantPlayRef is set)
+      // if not ready yet, onReady will start it (wantPlayRef is set)
     } else {
       const a = setupAudio();
-      if (!a) return setStatus('error');
-      a.play().catch(() => setStatus('error'));
+      if (a) a.play().catch(() => setStatus('paused'));
     }
   }, [setupAudio]);
 
   const pause = useCallback(() => {
     wantPlayRef.current = false;
-    if (modeRef.current === 'youtube' && ytReady.current) {
-      try { ytRef.current.pauseVideo(); } catch { /* ignore */ }
-    } else if (audioRef.current) {
-      audioRef.current.pause();
-    }
-    setStatus((s) => (s === 'error' ? s : 'paused'));
+    try {
+      if (modeRef.current === 'youtube' && ytReady.current && ytRef.current) ytRef.current.pauseVideo();
+      else if (audioRef.current) audioRef.current.pause();
+    } catch { /* ignore */ }
+    setStatus('paused');
   }, []);
 
   /** Call from a click handler (the "Enter Invitation" button) — browsers need a user gesture. */
@@ -157,18 +185,14 @@ export function MusicProvider({ children }) {
     play();
   }, [play]);
 
-  const toggle = useCallback(() => (status === 'playing' ? pause() : play()), [status, play, pause]);
+  const toggle = useCallback(() => (isPlaying() ? pause() : play()), [isPlaying, play, pause]);
 
   const toggleMute = useCallback(() => {
-    setMuted((m) => {
-      const next = !m;
-      try {
-        if (modeRef.current === 'youtube' && ytReady.current) next ? ytRef.current.mute() : ytRef.current.unMute();
-        else if (audioRef.current) audioRef.current.muted = next;
-      } catch { /* ignore */ }
-      return next;
-    });
-  }, []);
+    const next = !mutedRef.current;
+    mutedRef.current = next;
+    setMuted(next);
+    applyMute(next);
+  }, [applyMute]);
 
   const value = useMemo(
     () => ({ enabled: musicConfig.enabled, status, muted, started, start, play, pause, toggle, toggleMute }),
@@ -178,8 +202,12 @@ export function MusicProvider({ children }) {
   return (
     <MusicContext.Provider value={value}>
       {children}
-      {/* Hidden YouTube player host (kept off-screen, not display:none, so playback is allowed) */}
-      <div ref={hostRef} aria-hidden="true" style={{ position: 'fixed', width: 1, height: 1, left: -9999, top: 0, overflow: 'hidden', opacity: 0, pointerEvents: 'none' }} />
+      {/* Hidden YouTube player host. Kept at a real size (200x200) but invisible, because some mobile browsers refuse to play tiny players. */}
+      <div
+        ref={hostRef}
+        aria-hidden="true"
+        style={{ position: 'fixed', left: 0, bottom: 0, width: 200, height: 200, opacity: 0.01, pointerEvents: 'none', zIndex: -1, overflow: 'hidden' }}
+      />
     </MusicContext.Provider>
   );
 }

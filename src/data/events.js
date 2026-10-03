@@ -11,8 +11,8 @@ export const events = [
     name: 'Engagement',
     teluguName: 'నిశ్చితార్థం',
     date: { en: '1-11-2026', te: '1-11-2026' },
-    time: { en: '', te: '' },
-    venue: { en: 'Vishnu priya convention hall', te: 'విష్ణుప్రియ కన్వెన్షన్ హాల్' },
+    time: { en: '10:00 AM', te: '10:00 AM' },
+    venue: { en: 'Vishnu priya convention hall,Ongole', te: 'విష్ణుప్రియ కన్వెన్షన్ హాల్,ఓoగోలు' },
     description: { en: 'Engagement ceremony for Nikhil and Uma maheswari', te: 'నిఖిల్ మరియు ఉమ మహేశ్వరీకి ఎంగేజ్మెంట్ ' },
   },
   {
@@ -22,7 +22,6 @@ export const events = [
     name: 'Haldi / Pasupu Ceremony',
     teluguName: 'పసుపు వేడుక',
     date: { en: '17-11-2026', te: '17-11-2026' },
-    time: { en: '', te: '' },
 
     description: { en: 'Haldi', te: 'పసుపు వేడుక' },
   },
@@ -35,8 +34,8 @@ export const events = [
     name: 'Wedding',
     teluguName: 'వివాహం',
     date: { en: '18-11-2026', te: '18-11-2026' },
-    time: { en: '', te: '' },
-    venue: { en: 'Vishnu priya convention hall', te: 'విష్ణుప్రియ కన్వెన్షన్ హాల్' },
+    time: { en: '9:15 PM', te: '9:15 PM' },
+    venue: { en: 'Vishnu priya convention hall,Ongole', te: 'విష్ణుప్రియ కన్వెన్షన్ హాల్,ఓoగోలు' },
     description: { en: 'Wedding ceremony for Nikhil and Uma maheswari', te: 'నిఖిల్ మరియు ఉమ మహేశ్వరీకి వివాహం' },
   },
   {
@@ -46,7 +45,6 @@ export const events = [
     name: 'Reception',
     teluguName: 'రిసెప్షన్',
     date: { en: '20-11-2026', te: '20-11-2026' },
-    time: { en: '', te: '' },
     venue: { en: 'Vijayawada', te: 'విజయవాడ' },
     description: { en: 'Reception for Nikhil and Uma maheswari', te: 'నిఖిల్ మరియు ఉమ మహేశ్వరీకి రిసెప్షన్' },
   },

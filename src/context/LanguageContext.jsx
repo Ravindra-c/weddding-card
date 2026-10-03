@@ -6,7 +6,7 @@ import { getGuestName, fmt } from '../utils/helpers';
 const LanguageContext = createContext(null);
 
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState('te'); // default: Telugu
+  const [lang, setLang] = useState('en'); // default: English ('te' for Telugu)
   const guest = useMemo(() => getGuestName(), []);
 
   const value = useMemo(() => {

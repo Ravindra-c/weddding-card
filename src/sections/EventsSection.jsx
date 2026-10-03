@@ -151,19 +151,8 @@ export default function EventsSection() {
                       isTelugu={isTelugu}
                     />
 
-                    <Row
-                      Icon={Clock}
-                      label={t.events.time}
-                      value={pick(e.time)}
-                      isTelugu={isTelugu}
-                    />
-
-                    <Row
-                      Icon={MapPin}
-                      label={t.events.venue}
-                      value={pick(e.venue)}
-                      isTelugu={isTelugu}
-                    />
+                    {e.time && <Row Icon={Clock} label={t.events.time} value={pick(e.time)} isTelugu={isTelugu} />}
+{e.venue && <Row Icon={MapPin} label={t.events.venue} value={pick(e.venue)} isTelugu={isTelugu} />}
                   </div>
 
                   {/* ==================== DESCRIPTION ==================== */}
