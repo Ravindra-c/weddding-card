@@ -26,8 +26,8 @@ export const weddingData = {
   en: {
     groomName: 'Venkata Subrahmanya Nikhil Indraganti',
     brideName: 'Mahamkali Uma Maheswari',
-    groomFather: '[Indraganti V.S. Sasidhar Krishna]',
-    groomMother: '[Indraganti Sri Lakshmi]',
+    groomFather: 'Indraganti V.S. Sasidhar Krishna',
+    groomMother: 'Indraganti Sri Lakshmi',
     brideFather: ' Mahamkali Murali Krishna',
     brideMother:'mahamkali Rajeswari',
     groomTown: 'Vijayawada',
