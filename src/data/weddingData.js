@@ -42,11 +42,11 @@ export const weddingData = {
 
   te: {
     groomName: 'వెంకట సుబ్రమణ్యం నిఖిల్ ఇంద్రగంటి',
-    brideName: 'మహంకాలి ఉమ మహేశ్వరీ',
+    brideName: 'మహంకాళి ఉమ మహేశ్వరీ',
     groomFather: 'ఇంద్రగంటి వి.ఎస్. శశిధర్ కృష్ణ',
     groomMother: 'ఇంద్రగంటి శ్రీ లక్ష్మి',
-    brideFather: 'మహంకాలి మురళీ క్రిష్ణ',
-    brideMother: 'మహంకాలి రాజేశ్వరి',
+    brideFather: 'మహంకాళి మురళీ క్రిష్ణ',
+    brideMother: 'మహంకాళి రాజేశ్వరి',
     groomTown: 'విజయవాడ',
     brideTown: 'ఓoగోలు',
     weddingDate: '18-11-2026',
