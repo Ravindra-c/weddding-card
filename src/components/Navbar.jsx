@@ -5,7 +5,7 @@ import { useLang } from '../context/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
 import { Lotus } from './Ornaments';
 
-const LINKS = ['home', 'couple', 'story', 'events', 'venue'];
+const LINKS = ['home', 'couple', 'story',  'gallery', 'events','venue'];
 
 function useActiveSection(ids) {
   const [active, setActive] = useState('home');
@@ -50,7 +50,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled || open ? 'bg-maroon-deep/90 shadow-[0_6px_30px_-10px_rgba(0,0,0,.7)] backdrop-blur-md' : 'bg-gradient-to-b from-maroon-deep/70 to-transparent'}`}
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 border-b border-gold/30 bg-maroon-deep/95 backdrop-blur-md ${scrolled || open ? 'shadow-[0_6px_30px_-10px_rgba(0,0,0,.7)]' : ''}`}
       style={{ paddingTop: 'env(safe-area-inset-top)' }}
     >
       <nav aria-label="Main" className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-8">

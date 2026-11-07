@@ -29,7 +29,7 @@ export const weddingData = {
     groomFather: 'Indraganti V.S. Sasidhar Krishna',
     groomMother: 'Indraganti Sri Lakshmi',
     brideFather: ' Mahamkali Murali Krishna',
-    brideMother:'mahamkali Rajeswari',
+    brideMother:'Mahamkali Rajeswari',
     groomTown: 'Vijayawada',
     brideTown: 'Ongole',
     weddingDate: '18-11-2026',
