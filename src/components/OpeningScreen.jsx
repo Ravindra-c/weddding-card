@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { useLang } from '../context/LanguageContext';
 import { translations } from '../data/translations';
 import { weddingImages } from '../data/images';
@@ -15,18 +16,22 @@ const EASE = [0.22, 1, 0.36, 1];
 /**
  * Divine opening:
  * dark background → faint mandala → golden dust → Lord Venkateshwara reveals with a soft halo
- * → blessing line. There is no button: App.jsx opens the website automatically
- * after OPENING_DURATION_MS (5 seconds).
+ * → blessing line → "Enter Invitation" (needed so the browser lets music start).
  */
-export default function OpeningScreen() {
+export default function OpeningScreen({ onEnter }) {
   const { t, lang, isTelugu } = useLang();
   const [petals, setPetals] = useState(false);
+  const [ready, setReady] = useState(false);
+  const btnRef = useRef(null);
   const otherLang = lang === 'te' ? 'en' : 'te';
 
   useEffect(() => {
     const a = setTimeout(() => setPetals(true), 2200);
-    return () => clearTimeout(a);
+    const b = setTimeout(() => setReady(true), 4300);
+    return () => { clearTimeout(a); clearTimeout(b); };
   }, []);
+
+  useEffect(() => { if (ready) btnRef.current?.focus({ preventScroll: true }); }, [ready]);
 
   return (
     <motion.div
@@ -87,7 +92,7 @@ export default function OpeningScreen() {
         {/* blessing */}
         <div className="mt-9 sm:mt-12">
           <motion.h1 key={lang} className={`text-[1.6rem] font-semibold leading-snug sm:text-4xl ${isTelugu ? 'font-telugu' : 'font-display'}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
-            <SplitText text={t.opening.blessing} inView={false} delay={2.8} stagger={0.12} wordClassName="text-gold-gradient text-gold-shimmer" />
+            <SplitText text={t.opening.blessing} inView={false} delay={ready ? 0 : 2.8} stagger={0.12} wordClassName="text-gold-gradient text-gold-shimmer" />
           </motion.h1>
           <motion.p lang={otherLang} className={`mt-3 text-sm italic text-cream/60 sm:text-base ${otherLang === 'te' ? 'font-telugu' : 'font-display'}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.8, duration: 1.4 }}>
             {translations[otherLang].opening.blessing}
@@ -95,6 +100,57 @@ export default function OpeningScreen() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.6, duration: 1.2 }} className="mt-5">
             <GoldDivider />
           </motion.div>
+        </div>
+
+        {/* enter — eye-catching: glowing pulse rings, gentle beat, light sweep and a moving arrow */}
+        <div className="mt-8 flex h-24 items-start justify-center">
+          {ready && (
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: EASE }}
+            >
+              {/* expanding glow rings */}
+              {[0, 0.9].map((delay) => (
+                <motion.span
+                  key={delay}
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 rounded-full border-2 border-gold-light"
+                  initial={{ scale: 1, opacity: 0.7 }}
+                  animate={{ scale: 1.35, opacity: 0 }}
+                  transition={{ duration: 1.8, delay, repeat: Infinity, ease: 'easeOut' }}
+                />
+              ))}
+
+              <motion.button
+                ref={btnRef}
+                type="button"
+                onClick={onEnter}
+                animate={{ scale: [1, 1.06, 1] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                className={`btn-gold relative px-12 py-4 text-lg font-semibold shadow-[0_0_34px_rgba(240,215,138,.6)] sm:text-xl ${isTelugu ? 'font-teluguSans' : 'font-body'}`}
+              >
+                {/* light sweep across the button */}
+                <motion.span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-y-0 left-0 w-1/4 -skew-x-[20deg] bg-white/50 blur-[2px]"
+                  initial={{ x: '-150%' }}
+                  animate={{ x: '520%' }}
+                  transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 1.2, ease: 'easeInOut' }}
+                />
+                <span className="relative">{t.opening.enter}</span>
+                <motion.span
+                  aria-hidden="true"
+                  className="relative"
+                  animate={{ x: [0, 7, 0] }}
+                  transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <ArrowRight size={22} strokeWidth={2.4} />
+                </motion.span>
+              </motion.button>
+            </motion.div>
+          )}
         </div>
       </div>
     </motion.div>
