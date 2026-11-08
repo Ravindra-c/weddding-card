@@ -50,7 +50,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }} 
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} 
             transition={{ duration: 1.4, delay: 1 }} 
-            className={`text-gold-gradient text-gold-shimmer max-w-full break-words px-4 py-2 leading-normal text-[2rem] min-[400px]:text-4xl sm:text-5xl lg:text-6xl overflow-visible inline-block ${isTelugu ? 'font-telugu font-semibold' : 'font-script'}`}
+            className={`text-gold-gradient text-gold-shimmer max-w-full break-words px-4 py-2 overflow-visible inline-block ${isTelugu ? 'font-telugu font-semibold leading-[1.9] text-[1.6rem] min-[400px]:text-3xl sm:text-4xl lg:text-5xl [text-wrap:balance]' : 'font-script leading-normal text-[2rem] min-[400px]:text-4xl sm:text-5xl lg:text-6xl'}`}
           >
             {d.groomName}
           </motion.span>
