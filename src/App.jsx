@@ -19,11 +19,17 @@ import BlessingsSection from './sections/BlessingsSection';
 import ThankYouSection from './sections/ThankYouSection';
 import Footer from './sections/Footer';
 
+/** How long the opening (blessing) screen stays before the website opens by itself. */
+const OPENING_DURATION_MS = 5000;
+
 export default function App() {
   const [entered, setEntered] = useState(false);
   const [showOpening, setShowOpening] = useState(true); // forced to false shortly after entering
-  const { start } = useMusic();
+  const { start, status } = useMusic();
   const timers = useRef([]);
+  const statusRef = useRef(status);
+  statusRef.current = status;
+  const unlockTried = useRef(false);
 
   // No scrolling behind the opening screen; always unlock afterwards.
   useEffect(() => {
@@ -34,7 +40,7 @@ export default function App() {
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
 
   const enter = useCallback(() => {
-    start(); // must run inside the click → browsers allow audio after a user gesture
+    start(); // tries to play music; browsers may block it until the guest touches the page (handled below)
     window.scrollTo(0, 0);
     setEntered(true);
     // Safety net: even if the exit animation hangs, remove the opening screen and unlock scrolling.
@@ -46,10 +52,34 @@ export default function App() {
     );
   }, [start]);
 
+  // Open the website automatically after the opening screen has been shown.
+  useEffect(() => {
+    const id = setTimeout(enter, OPENING_DURATION_MS);
+    return () => clearTimeout(id);
+  }, [enter]);
+
+  // Browsers block music that starts without a tap. If that happened, start it on the
+  // guest's first tap / key press on the page (taps on buttons and links handle themselves).
+  useEffect(() => {
+    if (!entered) return undefined;
+    const events = ['pointerup', 'touchend', 'keydown'];
+    const remove = () => events.forEach((e) => window.removeEventListener(e, kick));
+    function kick(e) {
+      if (unlockTried.current) return;
+      if (statusRef.current === 'playing') { unlockTried.current = true; remove(); return; }
+      if (e.target?.closest?.('button, a')) return; // music button / links work on their own
+      unlockTried.current = true;
+      remove();
+      start();
+    }
+    events.forEach((e) => window.addEventListener(e, kick, { passive: true }));
+    return remove;
+  }, [entered, start]);
+
   return (
     <>
       {showOpening && (
-        <AnimatePresence>{!entered && <OpeningScreen key="opening" onEnter={enter} />}</AnimatePresence>
+        <AnimatePresence>{!entered && <OpeningScreen key="opening" />}</AnimatePresence>
       )}
 
       {entered && (

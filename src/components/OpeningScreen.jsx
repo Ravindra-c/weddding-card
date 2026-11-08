@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLang } from '../context/LanguageContext';
 import { translations } from '../data/translations';
@@ -15,22 +15,18 @@ const EASE = [0.22, 1, 0.36, 1];
 /**
  * Divine opening:
  * dark background → faint mandala → golden dust → Lord Venkateshwara reveals with a soft halo
- * → blessing line → "Enter Invitation" (needed so the browser lets music start).
+ * → blessing line. There is no button: App.jsx opens the website automatically
+ * after OPENING_DURATION_MS (5 seconds).
  */
-export default function OpeningScreen({ onEnter }) {
+export default function OpeningScreen() {
   const { t, lang, isTelugu } = useLang();
   const [petals, setPetals] = useState(false);
-  const [ready, setReady] = useState(false);
-  const btnRef = useRef(null);
   const otherLang = lang === 'te' ? 'en' : 'te';
 
   useEffect(() => {
     const a = setTimeout(() => setPetals(true), 2200);
-    const b = setTimeout(() => setReady(true), 4300);
-    return () => { clearTimeout(a); clearTimeout(b); };
+    return () => clearTimeout(a);
   }, []);
-
-  useEffect(() => { if (ready) btnRef.current?.focus({ preventScroll: true }); }, [ready]);
 
   return (
     <motion.div
@@ -91,7 +87,7 @@ export default function OpeningScreen({ onEnter }) {
         {/* blessing */}
         <div className="mt-9 sm:mt-12">
           <motion.h1 key={lang} className={`text-[1.6rem] font-semibold leading-snug sm:text-4xl ${isTelugu ? 'font-telugu' : 'font-display'}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
-            <SplitText text={t.opening.blessing} inView={false} delay={ready ? 0 : 2.8} stagger={0.12} wordClassName="text-gold-gradient text-gold-shimmer" />
+            <SplitText text={t.opening.blessing} inView={false} delay={2.8} stagger={0.12} wordClassName="text-gold-gradient text-gold-shimmer" />
           </motion.h1>
           <motion.p lang={otherLang} className={`mt-3 text-sm italic text-cream/60 sm:text-base ${otherLang === 'te' ? 'font-telugu' : 'font-display'}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.8, duration: 1.4 }}>
             {translations[otherLang].opening.blessing}
@@ -99,23 +95,6 @@ export default function OpeningScreen({ onEnter }) {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.6, duration: 1.2 }} className="mt-5">
             <GoldDivider />
           </motion.div>
-        </div>
-
-        {/* enter */}
-        <div className="mt-8 h-14">
-          {ready && (
-            <motion.button
-              ref={btnRef}
-              type="button"
-              onClick={onEnter}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: EASE }}
-              className={`btn-gold px-9 text-base ${isTelugu ? 'font-teluguSans' : 'font-body'}`}
-            >
-              {t.opening.enter}
-            </motion.button>
-          )}
         </div>
       </div>
     </motion.div>
