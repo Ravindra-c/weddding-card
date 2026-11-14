@@ -34,7 +34,7 @@ export const events = [
     name: 'Wedding',
     teluguName: 'వివాహం',
     date: { en: '18-11-2026', te: '18-11-2026' },
-    time: { en: '9:15 PM', te: '9:15 PM' },
+    time: { en: '9:14 PM', te: '9:14 PM' },
     venue: { en: 'Vishnu priya convention hall,Ongole', te: 'విష్ణుప్రియ కన్వెన్షన్ హాల్,ఓoగోలు' },
     description: { en: 'Wedding ceremony for Nikhil and Uma maheswari', te: 'నిఖిల్ మరియు ఉమ మహేశ్వరీకి వివాహం' },
   },
