@@ -1,29 +1,26 @@
-
-import {
-  CalendarDays,
-  Clock,
-  Flame,
-  Flower2,
-  Gem,
-  Heart,
-  Leaf,
-  MapPin,
-  PartyPopper,
-} from 'lucide-react';
+import { CalendarDays, Clock, MapPin } from 'lucide-react';
 
 import { events } from '../data/events';
 import { useLang, useLocalized } from '../context/LanguageContext';
 import Reveal from '../components/Reveal';
 import SectionHeading from '../components/SectionHeading';
 import { Corner } from '../components/Ornaments';
+import {
+  HaldiIcon,
+  HeartBloomIcon,
+  KalasamIcon,
+  LotusBloomIcon,
+  MehendiIcon,
+  RingsIcon,
+} from '../components/Eventicons';
 
 const ICONS = {
-  ring: Gem,
-  haldi: Flower2,
-  mehendi: Leaf,
-  wedding: Flame,
-  reception: PartyPopper,
-  heart: Heart,
+  ring: RingsIcon,
+  haldi: HaldiIcon,
+  mehendi: MehendiIcon,
+  wedding: KalasamIcon,
+  reception: LotusBloomIcon,
+  heart: HeartBloomIcon,
 };
 
 // A different subtle reveal for each card
@@ -92,7 +89,7 @@ export default function EventsSection() {
         {/* ==================== EVENT CARDS ==================== */}
         <div className="flex w-full flex-wrap justify-center gap-6 sm:gap-8">
           {list.map((e, i) => {
-            const Icon = ICONS[e.icon] || Heart;
+            const Icon = ICONS[e.icon] || HeartBloomIcon;
 
             const name =
               lang === 'te'
@@ -119,11 +116,11 @@ export default function EventsSection() {
                   <Corner className="absolute bottom-1 right-1 rotate-180 !h-8 !w-8 opacity-70" />
 
                   {/* ==================== EVENT ICON ==================== */}
-                  <div className="mx-auto mb-5 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-gold/70 bg-maroon-deep text-gold">
-                    <Icon
-                      size={26}
-                      aria-hidden="true"
-                    />
+                  <div
+                    className="relative mx-auto mb-6 flex h-[4.5rem] w-[4.5rem] shrink-0 items-center justify-center rounded-full border border-gold/80 bg-[radial-gradient(circle_at_50%_35%,#6b1428_0%,#350812_75%)] text-gold-light"
+                    style={{ boxShadow: '0 0 0 4px rgba(212,175,55,.12), 0 0 0 5px rgba(212,175,55,.35), 0 0 28px rgba(240,215,138,.28)' }}
+                  >
+                    <Icon size={38} />
                   </div>
 
                   {/* ==================== EVENT NAME ==================== */}

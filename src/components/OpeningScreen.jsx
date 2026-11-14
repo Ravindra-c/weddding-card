@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { useLang } from '../context/LanguageContext';
 import { translations } from '../data/translations';
 import { weddingImages } from '../data/images';
@@ -101,20 +102,54 @@ export default function OpeningScreen({ onEnter }) {
           </motion.div>
         </div>
 
-        {/* enter */}
-        <div className="mt-8 h-14">
+        {/* enter — eye-catching: glowing pulse rings, gentle beat, light sweep and a moving arrow */}
+        <div className="mt-8 flex h-24 items-start justify-center">
           {ready && (
-            <motion.button
-              ref={btnRef}
-              type="button"
-              onClick={onEnter}
+            <motion.div
+              className="relative"
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: EASE }}
-              className={`btn-gold px-9 text-base ${isTelugu ? 'font-teluguSans' : 'font-body'}`}
             >
-              {t.opening.enter}
-            </motion.button>
+              {/* expanding glow rings */}
+              {[0, 0.9].map((delay) => (
+                <motion.span
+                  key={delay}
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 rounded-full border-2 border-gold-light"
+                  initial={{ scale: 1, opacity: 0.7 }}
+                  animate={{ scale: 1.35, opacity: 0 }}
+                  transition={{ duration: 1.8, delay, repeat: Infinity, ease: 'easeOut' }}
+                />
+              ))}
+
+              <motion.button
+                ref={btnRef}
+                type="button"
+                onClick={onEnter}
+                animate={{ scale: [1, 1.06, 1] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                className={`btn-gold relative px-12 py-4 text-lg font-semibold shadow-[0_0_34px_rgba(240,215,138,.6)] sm:text-xl ${isTelugu ? 'font-teluguSans' : 'font-body'}`}
+              >
+                {/* light sweep across the button */}
+                <motion.span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-y-0 left-0 w-1/4 -skew-x-[20deg] bg-white/50 blur-[2px]"
+                  initial={{ x: '-150%' }}
+                  animate={{ x: '520%' }}
+                  transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 1.2, ease: 'easeInOut' }}
+                />
+                <span className="relative">{t.opening.enter}</span>
+                <motion.span
+                  aria-hidden="true"
+                  className="relative"
+                  animate={{ x: [0, 7, 0] }}
+                  transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <ArrowRight size={22} strokeWidth={2.4} />
+                </motion.span>
+              </motion.button>
+            </motion.div>
           )}
         </div>
       </div>

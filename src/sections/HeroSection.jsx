@@ -12,7 +12,7 @@ export default function HeroSection() {
 
   return (
     // Top padding decreased by 20% (pt-36 sm:pt-44 -> pt-28 sm:pt-36)
-    <section id="home" className="relative isolate flex min-h-[100svh] items-center justify-center overflow-hidden bg-[radial-gradient(ellipse_at_50%_30%,#6b1428_0%,#350812_60%,#1c0409_100%)] px-5 pb-24 pt-28 sm:pt-36 text-center text-cream">
+    <section id="home" className="relative isolate flex min-h-[100svh] items-center justify-center overflow-hidden bg-[radial-gradient(ellipse_at_50%_30%,#6b1428_0%,#350812_60%,#1c0409_100%)] px-5 pb-24 pt-32 sm:pt-40 text-center text-cream">
       {/* atmosphere */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <div className="light-rays absolute inset-0" />
@@ -21,10 +21,10 @@ export default function HeroSection() {
         <PetalAnimation variant="gold" />
         <PetalAnimation variant="petals" density={0.8} />
       </div>
-      <Toran className="pointer-events-none absolute inset-x-0 top-14 h-10 sm:top-16 sm:h-16" />
+      <Toran className="pointer-events-none absolute inset-x-3 top-[calc(5rem+env(safe-area-inset-top))] h-10 sm:inset-x-6 sm:top-[calc(5.5rem+env(safe-area-inset-top))] sm:h-16 lg:inset-x-8 lg:top-[calc(6rem+env(safe-area-inset-top))]" />
 
       {/* gold border frame */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-3 border border-gold/50 sm:inset-6 lg:inset-8">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-3 bottom-3 top-[calc(5rem+env(safe-area-inset-top))] border border-gold/50 sm:inset-x-6 sm:bottom-6 sm:top-[calc(5.5rem+env(safe-area-inset-top))] lg:inset-x-8 lg:bottom-8 lg:top-[calc(6rem+env(safe-area-inset-top))]">
         <div className="absolute inset-1.5 border border-gold/20" />
         <Corner className="absolute -left-px -top-px" />
         <Corner className="absolute -right-px -top-px rotate-90" />
@@ -50,7 +50,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }} 
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} 
             transition={{ duration: 1.4, delay: 1 }} 
-            className={`text-gold-gradient text-gold-shimmer max-w-full break-words px-4 py-2 leading-normal text-[2rem] min-[400px]:text-4xl sm:text-5xl lg:text-6xl overflow-visible inline-block ${isTelugu ? 'font-telugu font-semibold' : 'font-script'}`}
+            className={`text-gold-gradient text-gold-shimmer max-w-full break-words px-4 py-2 overflow-visible inline-block ${isTelugu ? 'font-telugu font-semibold leading-[1.9] text-[1.6rem] min-[400px]:text-3xl sm:text-4xl lg:text-5xl [text-wrap:balance]' : 'font-script leading-normal text-[2rem] min-[400px]:text-4xl sm:text-5xl lg:text-6xl'}`}
           >
             {d.groomName}
           </motion.span>

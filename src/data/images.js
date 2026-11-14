@@ -27,5 +27,12 @@ export const weddingImages = {
     { src: '/assets/images/gallery-6.jpg', aspect: '1 / 1', alt: { en: 'Wedding photo 6', te: 'వివాహ చిత్రం 6' } },
     { src: '/assets/images/gallery-7.jpg', aspect: '4 / 5', alt: { en: 'Wedding photo 7', te: 'వివాహ చిత్రం 7' } },
     { src: '/assets/images/gallery-8.jpg', aspect: '4 / 3', alt: { en: 'Wedding photo 8', te: 'వివాహ చిత్రం 8' } },
+    { src: '/assets/images/gallery-9.jpg', aspect: '3 / 4', alt: { en: 'Wedding photo 9', te: 'వివాహ చిత్రం 9' } },
+    { src: '/assets/images/gallery-10.jpg', aspect: '4 / 3', alt: { en: 'Wedding photo 10', te: 'వివాహ చిత్రం 10' } },
+    { src: '/assets/images/gallery-11.jpg', aspect: '1 / 1', alt: { en: 'Wedding photo 11', te: 'వివాహ చిత్రం 11' } },
+    { src: '/assets/images/gallery-12.jpg', aspect: '4 / 5', alt: { en: 'Wedding photo 12', te: 'వివాహ చిత్రం 12' } },
+    { src: '/assets/images/gallery-13.jpg', aspect: '3 / 4', alt: { en: 'Wedding photo 13', te: 'వివాహ చిత్రం 13' } },
+    { src: '/assets/images/gallery-14.jpg', aspect: '4 / 3', alt: { en: 'Wedding photo 14', te: 'వివాహ చిత్రం 14' } },
+    { src: '/assets/images/gallery-15.jpg', aspect: '1 / 1', alt: { en: 'Wedding photo 15', te: 'వివాహ చిత్రం 15' } },
   ],
 };

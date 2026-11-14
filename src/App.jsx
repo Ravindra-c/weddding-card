@@ -11,7 +11,7 @@ import FamilySection from './sections/FamilySection';
 import EventsSection from './sections/EventsSection';
 import CountdownSection from './sections/CountdownSection';
 import WeddingDetails from './sections/WeddingDetails';
-//import GallerySection from './sections/GallerySection';
+import GallerySection from './sections/GallerySection';
 import VenueSection from './sections/VenueSection';
 //import RSVPSection from './sections/RSVPSection';
 //import ShareSection from './sections/ShareSection';
@@ -60,6 +60,7 @@ export default function App() {
             <CoupleSection />
             <StorySection />
             <FamilySection />
+            <GallerySection />
             <EventsSection />
             <CountdownSection />
             <WeddingDetails />
