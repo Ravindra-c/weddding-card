@@ -3,6 +3,7 @@ import { CalendarDays, Clock, MapPin } from 'lucide-react';
 import PujaIcon from '../components/PujaIcon';
 
 
+
 import { events } from '../data/events';
 import { useLang, useLocalized } from '../context/LanguageContext';
 import Reveal from '../components/Reveal';
