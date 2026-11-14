@@ -47,7 +47,7 @@ export const weddingData = {
   },
 
   te: {
-    groomName: 'వేంకట సుబ్రహ్మణ్య నిఖిల్',
+    groomName: 'ఇంద్రగంటి వేంకట సుబ్రహ్మణ్య నిఖిల్',
     brideName: 'మహంకాళి ఉమా మహేశ్వరి',
     groomFather: 'ఇంద్రగంటి శశిధర్ కృష్ణ',
     groomMother: 'శ్రీమతి ఇంద్రగంటి శ్రీ లక్ష్మి',
